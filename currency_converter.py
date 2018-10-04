@@ -14,7 +14,10 @@ parser.add_argument('--output_currency', help='a valid 3 letter code',required=F
 args = parser.parse_args()
 #print args
 
-in_cr=r.json()['quotes'][base+''+str(args.input_currency)]
+if(str(args.input_currency) != base):
+    in_cr=r.json()['quotes'][base+''+str(args.input_currency)]
+else:
+    in_cr=args.amount
 
 
 if args.output_currency:
