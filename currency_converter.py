@@ -25,8 +25,9 @@ if args.output_currency:
     out_cr=r.json()['quotes'][base+''+str(args.output_currency)]
     #print ''+str(args.amount)+' '+str(args.input_currency)+' = '+str(args.output_currency)
     out_am=conv(float(in_cr),float(out_cr),args.amount)
-    print '' + str(symb(str(args.input_currency)))+''+ str(args.amount) +' ('+str(args.input_currency)+') = '+ str(out_am) +' ' + str(args.output_currency)
+    print '' + str(symb(str(args.input_currency)))+''+ str(args.amount) +' ('+str(args.input_currency)+') = '+ str(symb(str(args.output_currency)))+''+str(out_am) +' (' + str(args.output_currency)+')'
 else:
     for i in r.json()['quotes']:
         out_am=conv(float(in_cr),float(r.json()['quotes'][i]),args.amount)
-        print '' + str(symb(str(args.input_currency)))+''+ str(args.amount) +' ('+str(args.input_currency)+') = '+ str(out_am) +' ' + str(symb(i))
+        code=i[3:]
+        print '' + str(symb(str(args.input_currency)))+''+ str(args.amount) +' ('+str(args.input_currency)+') = '+ str(out_am) +' (' + str(code)+ ')'
