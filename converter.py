@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from json_api import countries
 
 def conv(in_curr,out_curr,in_amount):
@@ -16,9 +17,9 @@ def code2symb(b):
 
 def symb2code(d):
     for l in countries.json()['results']:
-        if countries.json()['results'][l]['currencySymbol']==d:
+        if str(countries.json()['results'][l]['currencySymbol'].encode("utf-8"))==d:
             code3=countries.json()['results'][l]['currencyId']
-            return code3.decode("utf-8")
+            return str(code3)
             break
 
 
@@ -28,3 +29,4 @@ def symb2print(c):
     else:
         toprint=''
     return toprint
+

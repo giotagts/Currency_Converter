@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import argparse
 from converter import conv
 from converter import code2symb
@@ -17,10 +18,8 @@ args = parser.parse_args()
 
 if len(args.input_currency)!=3:
     args.input_currency=symb2code(str(args.input_currency))
-
-
 if(str(args.input_currency) != base):
-    in_cr=geturl.json()['quotes'][base+''+str(args.input_currency)]
+    in_cr=geturl.json()['quotes'][base+''+args.input_currency]
 else:
     in_cr=args.amount
 
@@ -28,7 +27,9 @@ else:
 print '{\n\t"input": {\n\t\t"amount":'+str(args.amount)+',\n\t\t"currency": "'+ str(args.input_currency)+'"\n\t},\n\t"output": {'
 
 if args.output_currency is not None:
-    out_cr=geturl.json()['quotes'][base+''+str(args.output_currency)]
+    if len(args.output_currency)!=3:
+        args.ouput_currency=symb2code(str(args.output_currency))   
+    out_cr=geturl.json()['quotes'][base+''+args.output_currency]
     out_am=conv(float(in_cr),float(out_cr),args.amount)
     print '\t\t"'+str(args.output_currency)+'": '+str(out_am)
 
