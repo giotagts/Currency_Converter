@@ -1,4 +1,3 @@
-
 import argparse
 from converter import conv
 from converter import code2symb
@@ -38,6 +37,7 @@ else:
         out_am=conv(float(in_cr),float(geturl.json()['quotes'][i]),args.amount)
         code=i[3:]
         print '\t\t"'+str(code)+'": '+str(out_am)
+
 
 
 

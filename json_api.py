@@ -3,4 +3,3 @@ geturl=requests.get('http://www.apilayer.net/api/live?access_key=9be442e4e401c67
 countries=requests.get('https://free.currencyconverterapi.com/api/v6/countries')
 base=geturl.json()['source']
 
-
