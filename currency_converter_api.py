@@ -14,17 +14,6 @@ from flask import request, jsonify
 app = flask.Flask(__name__)
 
 
-quotes=[
-{   
-    "input": {
-        "amount": 0.9,
-        "currency": "CNY"
-    },
-    "output": {
-        "AUD": 0.20, 
-    }
-}
-]
 @app.route('/currency_converter', methods=['GET'])
 def api_input():
     # Check if an amount and input currency were provided as part of the URL.
@@ -47,29 +36,37 @@ def api_input():
     # Create an empty list for our results
     results = []
 
-    if len(args.input_currency)!=3:
-        args.input_currency=symb2code(args.input_currency).decode("utf-8")
+    if len(input_currency)!=3:
+        input_currency=symb2code(input_currency).decode("utf-8")
 
 
-    if(str(args.input_currency) != base):
-        in_cr=geturl.json()['quotes'][base+''+str(args.input_currency)]
+    if(input_currency != base):
+        in_cr=geturl.json()['quotes'][base+''+str(input_currency)]
     else:
-        in_cr=args.amount
+        in_cr=amount
 
-
-    text= '{\n\t"input": {\n\t\t"amount":'+str(args.amount)+',\n\t\t"currency": "'+ str(args.input_currency)+'"\n\t},\n\t"output": {'
-
-    if args.output_currency is not None:
-        out_cr=geturl.json()['quotes'][base+''+str(args.output_currency)]
-        out_am=conv(float(in_cr),float(out_cr),args.amount)
-        text=text+ '\t\t"'+str(args.output_currency)+'": '+str(out_am)
+    results=[
+    {
+        "input" : {
+            "amount": amount,
+            "currency": input_currency
+        }
+    }]
+        
+    if output_currency is not None:
+        out_cr=geturl.json()['quotes'][base+''+str(output_currency)]
+        out_am=conv(float(in_cr),float(out_cr),amount)
 
     else:
         for i in geturl.json()['quotes']:
-            out_am=conv(float(in_cr),float(geturl.json()['quotes'][i]),args.amount)
+            out_am=conv(float(in_cr),float(geturl.json()['quotes'][i]),amount)
             code=i[3:]
-            text=text +'\t\t"'+str(code)+'": '+str(out_am)
-    results.append(text)
+            results.append({
+                "output" : {
+                    code : out_am
+                }
+        })
+        
 
 
 

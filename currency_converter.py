@@ -16,7 +16,7 @@ parser.add_argument('--output_currency', help='a valid 3 letter code',required=F
 args = parser.parse_args()
 
 if len(args.input_currency)!=3:
-    args.input_currency=symb2code(args.input_currency).decode("utf-8")
+    args.input_currency=symb2code(str(args.input_currency))
 
 
 if(str(args.input_currency) != base):
