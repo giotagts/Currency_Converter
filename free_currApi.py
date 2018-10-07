@@ -1,18 +1,8 @@
-
-
-import requests
-countries=requests.get('https://free.currencyconverterapi.com/api/v6/countries')
-
-def code2symb(b):
-    for k in countries.json()['results']:
-        if countries.json()['results'][k]['currencyId']==b:
-            symbol=countries.json()['results'][k]['currencySymbol']
-            return symbol
-            break
-
-def symb2code(d):
-    for l in countries.json()['results']:
-        if countries.json()['results'][l]['currencySymbol']==d:
-            code3=countries.json()['results'][l]['currencyId']
-            return code3
-            break
+import argparse
+from converter import conv
+from converter import code2symb
+from converter import symb2code
+#from json_api import geturl
+from json_api import base
+from json_api import coder
+import json
